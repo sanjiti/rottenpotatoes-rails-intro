@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
     
     sort_by = params[:sort_by] || session[:sort_by]
     @all_ratings = Movie.all_ratings
-    @selected_ratings = params[:ratings] || session[:ratings] || @all_ratings.map { |rating| [rating, 1] }.to_h
+    selected_ratings = params[:ratings] || session[:ratings] || @all_ratings.map { |rating| [rating, 1] }.to_h
     if !params.has_key?(:ratings)
       @ratings_to_show = []
     else
@@ -19,8 +19,8 @@ class MoviesController < ApplicationController
     end
     if params[:sort_by] != session[:sort_by] or params[:ratings] != session[:ratings]
       session[:sort_by] = sort_by
-      session[:ratings] = @selected_ratings
-      redirect_to sort_by: sort_by, ratings: @selected_ratings and return
+      session[:ratings] = selected_ratings
+      redirect_to sort_by: sort_by, ratings: selected_ratings and return
     end
     
     @movies = Movie.with_ratings(@ratings_to_show)
