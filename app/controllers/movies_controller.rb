@@ -32,6 +32,7 @@ class MoviesController < ApplicationController
       @title_header = 'hilite bg-warning' if params[:sort_by]=='title'
       @release_date_header = 'hilite bg-warning' if params[:sort_by]=='release_date'
     end
+  end
 
   def new
     # default: render 'new' template
