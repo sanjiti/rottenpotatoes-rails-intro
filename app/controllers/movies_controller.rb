@@ -8,20 +8,20 @@ class MoviesController < ApplicationController
 
   def index
     
-    sort_by = params[:sort_by] || session[:sort_by]
+    #ort_by = params[:sort_by] || session[:sort_by]
     @all_ratings = Movie.all_ratings
-    selected_ratings = params[:ratings] || session[:ratings] || @all_ratings.map { |rating| [rating, 1] }.to_h
+    #selected_ratings = params[:ratings] || session[:ratings] || @all_ratings.map { |rating| [rating, 1] }.to_h
     if !params.has_key?(:ratings)
       @ratings_to_show = []
     else
       @ratings_to_show = params[:ratings].keys
       @ratings_to_show_hash = Hash[@ratings_to_show.collect {|key| [key, '1']}]
     end
-    if params[:sort_by] != session[:sort_by] or params[:ratings] != session[:ratings]
-      session[:sort_by] = sort_by
-      session[:ratings] = selected_ratings
-      redirect_to sort_by: sort_by, ratings: selected_ratings and return
-    end
+    #if params[:sort_by] != session[:sort_by] or params[:ratings] != session[:ratings]
+    #  session[:sort_by] = sort_by
+    #   session[:ratings] = selected_ratings
+    #  redirect_to sort_by: sort_by, ratings: selected_ratings and return
+    #end
     
     @movies = Movie.with_ratings(@ratings_to_show)
     
